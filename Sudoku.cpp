@@ -31,13 +31,13 @@ void Sudoku::ReadIn()
 void Sudoku::Solve()
 {	
 	int i,j,k,l=0;
-	int spaceps[size];
-	int spacenum=0;
+	int spaceps[size];//這個陣列是要存入空格位置數i
+	int spacenum=0;//這個變數是要計算空格0個數
 	int ans[size];
 	for(i=0;i<size;i++)
 	{
 		if(gue[i]==-1)
-			l++;
+			l++;//計算-1數若不到36個則回傳0(無解)
 		ans[i]=0;
 		spaceps[i]=0;
 	}
@@ -102,7 +102,7 @@ void Sudoku::Solve()
 				t++;
 			}
 		}
-		checkfirst=checkUnity(testf);
+		checkfirst=checkUnity(testf);   //本來有用現在沒屁用
 		if(checkfirst==false)
 		{
 			cout<<0<<endl;
@@ -118,26 +118,25 @@ void Sudoku::Solve()
 		if(gue[i]==0)
 		{	
 			//cout<<i<<endl;//test
-			spacenum++;
-			spaceps[spacenum-1]=i;
+			spacenum++;//計算空格0數
+			spaceps[spacenum-1]=i;//並將其位置一一放入spaceps[]
 		}
 	}
 	int flag=0,num=0,a,tc;
 	j=0;
-	i=spaceps[j];//start
+	i=spaceps[j];//起始點
 	bool checkit;
 	int time=0;
-	//cout<<i<<"  "<<spacenum<<endl;//test
 	for(;;num++)
 	{
-		num=gue[i]+1;
+		num=gue[i]+1;//從原本空格所填之數+1開始填
 		checkit=check(num,i);//補   check function
 		if(checkit==true)//此格有解
 		{
 			gue[i]=num;
 			num=0;
 			j++;
-			if(j==spacenum)//填完了  可能得放在checkit==true裡
+			if(j==spacenum)//填完了  放在checkit==true裡
 			{ 
 				if(flag==0)
 				{
@@ -146,7 +145,7 @@ void Sudoku::Solve()
 				}
 				//cout<<"check!!!\n";
 				j--;
-				i=spaceps[j];
+				i=spaceps[j];//填完了往回檢查是否多重解
 				flag++;
 				if(flag==2)
 					break;
