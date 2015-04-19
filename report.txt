@@ -1,0 +1,42 @@
+編譯:
+makefile:
+
+all: solve.o give_question.o Sudoku.o Clock.o
+    g++ -o solve solve.o Sudoku.o Clock.o
+	g++ -o give_question give_question.o Sudoku.o
+Sudoku.o: Sudoku.cpp Sudoku.h
+	g++ -c Sudoku.cpp
+Clock.o: Clock.cpp Clock.h
+	g++ -c Clock.cpp
+solve.o: solve.cpp Sudoku.h Clock.h
+	g++ -c solve.cpp
+give_question.o: give_question.cpp Sudoku.h
+	g++ -c give_question.cpp
+clean:
+	rm solve*.o Sudoku*.o give_question*.o Clock*.o
+
+
+產生give_question 及 solve兩個執行檔
+
+寫法:
+設兩個主要陣列
+一為一維陣列儲存空格位置spaceps[]
+一為一維陣列儲存數獨gue[]
+從第一個空格開始1~9猜測
+一直到最後一格
+若中途遇到1~9都填不進去的情形
+就回到原前一格空白做猜測
+若一直回到第一格都無解
+則顯示無解
+若回到最後一格且填的進去
+則先將答案填入另一陣列暫存
+再回去上一格用下一個數字猜測
+若無多重解就會回到第一格無法填的狀態
+有的話就又會回到第一格
+最後印出結果(無解,唯一解,多重解)
+
+備註:
+repository無法調成private(需要付費)
+只好暫時調成public
+
+
